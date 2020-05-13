@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b73defc0e506340beaeb4d0c6e55a4, type: 3}
   m_Name: AnimGraph_Stand
   m_EditorClassIdentifier: 
+  animIdle: {fileID: -3100369314251171874, guid: 884ca6233e161be4b8f1dbf2e4988b94,
+    type: 3}

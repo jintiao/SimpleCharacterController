@@ -2,7 +2,7 @@
 
 namespace JT
 {
-    public struct GameTime
+    public class LogicStateData
     {
     }
 }
