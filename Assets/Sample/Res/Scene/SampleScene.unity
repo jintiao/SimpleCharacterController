@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 1150959445}
   - component: {fileID: 1150959444}
   - component: {fileID: 1150959443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,6 +667,54 @@ Transform:
   m_Father: {fileID: 293464806}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1312489807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5855691950906563008, guid: e2c45064d0d16014a917631f45d796d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4026858376212899610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1312489808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312489807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bfaec1d0d2392f449533ea7735bb141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  locoState: 0
+  altitude: 0
+  groundCollider: {fileID: 0}
+  groundNormal: {x: 0, y: 0, z: 0}
+--- !u!114 &1312489809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312489807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efbce452ac874c43ae09090951d6de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    slopeLimit: 45
+    stepOffset: 0.3
+    skinWidth: 0.08
+    minMoveDistance: 0.001
+    center: {x: 0, y: 0.95, z: 0}
+    radius: 0.5
+    height: 1.9
+  moveQueryStart: {x: 0, y: 0, z: 0}
+  moveQueryEnd: {x: 0, y: 0, z: 0}
+  moveQueryResult: {x: 0, y: 0, z: 0}
+  moveQueryIsGrounded: 0
 --- !u!1001 &4026858376212899610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -727,7 +775,7 @@ PrefabInstance:
     - target: {fileID: 7428899881696144339, guid: e2c45064d0d16014a917631f45d796d4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7428899881696144339, guid: e2c45064d0d16014a917631f45d796d4,
         type: 3}

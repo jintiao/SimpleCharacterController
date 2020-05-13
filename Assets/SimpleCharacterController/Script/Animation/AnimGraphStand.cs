@@ -38,14 +38,14 @@ namespace JT
 
                 var animator = controller.GetComponent<Animator>();
                 var skeleton = controller.GetComponent<Skeleton>();
-                var leftToes = skeleton.bones[skeleton.GetBoneIndex(settings.leftToeBone.GetHashCode())];
-                var rightToes = skeleton.bones[skeleton.GetBoneIndex(settings.rightToeBone.GetHashCode())];
+                //var leftToes = skeleton.bones[skeleton.GetBoneIndex(settings.leftToeBone.GetHashCode())];
+                //var rightToes = skeleton.bones[skeleton.GetBoneIndex(settings.rightToeBone.GetHashCode())];
 
                 var ikJob = new FootIkJob
                 {
                     settings = settings.footIK,
-                    leftToe = animator.BindStreamTransform(leftToes),
-                    rightToe = animator.BindStreamTransform(rightToes)
+                    //leftToe = animator.BindStreamTransform(leftToes),
+                    //rightToe = animator.BindStreamTransform(rightToes)
                 };
                 m_FootIk = AnimationScriptPlayable.Create(graph, ikJob, 1);
                 graph.Connect(m_LocomotionMixer, 0, m_FootIk, 0);
