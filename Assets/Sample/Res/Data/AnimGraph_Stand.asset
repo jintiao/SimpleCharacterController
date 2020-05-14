@@ -15,8 +15,16 @@ MonoBehaviour:
   animIdle: {fileID: -3100369314251171874, guid: 884ca6233e161be4b8f1dbf2e4988b94,
     type: 3}
   footIK:
-    leftToeStandPos: {x: 0, y: 0, z: 0}
-    rightToeStandPos: {x: 0, y: 0, z: 0}
-    enabled: 0
+    leftToeStandPos: {x: 0.18, y: 0.042, z: 0.315}
+    rightToeStandPos: {x: -0.18, y: 0.042, z: -0.49}
+    enabled: 1
+    emitRayOffset: 0.5
+    maxRayDistance: 0.75
+    maxStepSize: 0.55
+    weightShiftAngle: 17.5
+    weightShiftHorizontal: -0.5
+    weightShiftVertical: -0.35
+    maxFootRotationOffset: 30
+    enterStateEaseIn: 0.65
   leftToeBone: Left_Toes
   rightToeBone: Right_Toes

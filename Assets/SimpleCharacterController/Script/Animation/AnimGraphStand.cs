@@ -7,6 +7,12 @@ namespace JT
     [CreateAssetMenu(fileName = "AnimGraph_Stand", menuName = "SimpleCharacterController/AnimGraph/Stand")]
     public class AnimGraphStand : AnimGraphAsset
     {
+        enum StandState
+        {
+            Moving,
+            Standing,
+        }
+
         public AnimationClip animIdle;
         public FootIkJob.JobSettings footIK;
         public string leftToeBone;
@@ -22,6 +28,7 @@ namespace JT
         {
             AnimGraphStand m_Settings;
             AnimStateData m_AnimState;
+            LogicStateData m_PredictedState;
 
             AnimationScriptPlayable m_FootIk;
             AnimationMixerPlayable m_LocomotionMixer;
@@ -30,16 +37,21 @@ namespace JT
             Vector3 m_LeftFootPos;
             Vector3 m_RightFootPos;
 
+            int m_Mask;
+
+            RaycastHit m_LeftHit;
+            RaycastHit m_RightHit;
+            bool m_LeftHitSuccess;
+            bool m_RightHitSuccess;
+            StandState m_StandState;
+
             public Instance(AnimStateController controller, PlayableGraph graph, AnimGraphStand settings)
             {
                 m_Settings = settings;
                 m_AnimState = controller.GetComponent<AnimStateData>();
-
-                m_LocomotionMixer = AnimationMixerPlayable.Create(graph, (int)LocoMixerPort.Count);
+                m_PredictedState = controller.GetComponent<LogicStateData>();
 
                 m_AnimIdle = AnimationClipPlayable.Create(graph, settings.animIdle);
-                graph.Connect(m_AnimIdle, 0, m_LocomotionMixer, (int)LocoMixerPort.Idle);
-                m_LocomotionMixer.SetInputWeight((int)LocoMixerPort.Idle, 1.0f);
 
                 var animator = controller.GetComponent<Animator>();
                 var skeleton = controller.GetComponent<Skeleton>();
@@ -53,8 +65,10 @@ namespace JT
                     rightToe = animator.BindStreamTransform(rightToes)
                 };
                 m_FootIk = AnimationScriptPlayable.Create(graph, ikJob, 1);
-                graph.Connect(m_LocomotionMixer, 0, m_FootIk, 0);
+                graph.Connect(m_AnimIdle, 0, m_FootIk, 0);
                 m_FootIk.SetInputWeight(0, 1f);
+
+                m_Mask = 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("Platform");
             }
 
             public void ApplyPresentationState(float deltaTime)
@@ -83,18 +97,39 @@ namespace JT
             public void UpdatePresentationState(bool firstUpdate, float deltaTime)
             {
                 var footIkJob = m_FootIk.GetJobData<FootIkJob>();
+
+                if (m_PredictedState.velocity.magnitude > 0.001f)
+                    m_StandState = StandState.Moving;
+                else
+                    m_StandState = StandState.Standing;
+
                 if (m_Settings.footIK.enabled)
                 {
-                    if (firstUpdate)
+                    if (m_StandState == StandState.Moving || firstUpdate)
                     {
                         var rotation = Quaternion.Euler(0f, m_AnimState.rotation, 0f);
                         m_LeftFootPos = rotation * m_Settings.footIK.leftToeStandPos + m_AnimState.position;
                         m_RightFootPos = rotation * m_Settings.footIK.rightToeStandPos + m_AnimState.position;
                     }
 
+                    if (m_StandState == StandState.Moving)
+                    {
+                        var rayEmitOffset = Vector3.up * m_Settings.footIK.emitRayOffset;
+                        var maxRayDistance = m_Settings.footIK.emitRayOffset + m_Settings.footIK.maxRayDistance;
+                        m_LeftHitSuccess = Physics.Raycast(m_LeftFootPos + rayEmitOffset, Vector3.down, out m_LeftHit, maxRayDistance, m_Mask);
+                        m_RightHitSuccess = Physics.Raycast(m_RightFootPos + rayEmitOffset, Vector3.down, out m_RightHit, maxRayDistance, m_Mask);
+                    }
+
                     if (firstUpdate)
                     {
                         footIkJob.ikWeight = 0.0f;
+                    }
+
+                    if (m_StandState == StandState.Moving)
+                    {
+                        m_AnimState.footIkOffset = GetClampedOffset();
+                        m_AnimState.footIkNormalLeft = m_LeftHit.normal;
+                        m_AnimState.footIkNormaRight = m_RightHit.normal;
                     }
                 }
 
@@ -104,12 +139,30 @@ namespace JT
                 m_FootIk.SetJobData(footIkJob);
             }
 
-            enum LocoMixerPort
+            Vector2 GetClampedOffset()
             {
-                Idle,
-                TurnL,
-                TurnR,
-                Count
+                var leftOffset = 0.0f;
+                var rightOffset = 0.0f;
+
+                if (m_LeftHitSuccess)
+                {
+                    leftOffset = Mathf.Clamp(m_LeftHit.point.y - m_LeftFootPos.y + m_Settings.footIK.leftToeStandPos.y, -m_Settings.footIK.maxStepSize, m_Settings.footIK.maxStepSize);
+                }
+
+                if (m_RightHitSuccess)
+                {
+                    rightOffset = Mathf.Clamp(m_RightHit.point.y - m_RightFootPos.y + m_Settings.footIK.rightToeStandPos.y, -m_Settings.footIK.maxStepSize, m_Settings.footIK.maxStepSize);
+                }
+
+                var stepMag = Mathf.Abs(leftOffset - rightOffset);
+
+                if (stepMag > m_Settings.footIK.maxStepSize)
+                {
+                    leftOffset = (leftOffset / stepMag) * m_Settings.footIK.maxStepSize;
+                    rightOffset = (rightOffset / stepMag) * m_Settings.footIK.maxStepSize;
+                }
+
+                return new Vector2(leftOffset, rightOffset);
             }
         }
     }
