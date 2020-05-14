@@ -21,8 +21,9 @@ namespace JT
 
         void Update()
         {
-            m_AbilityMove.UpdateMove();
-            m_AnimStateController.UpdateAnim(Time.deltaTime);
+            var deltaTime = Time.deltaTime;
+            m_AbilityMove.UpdateMove(deltaTime);
+            m_AnimStateController.UpdateAnim(deltaTime);
             UpdateTransform();
         }
 

@@ -6,7 +6,7 @@ namespace JT
     public class AbilityMove : MonoBehaviour
     {
         [Serializable]
-        public struct Settings
+        public struct CharacterControllerSettings
         {
             public float slopeLimit;
             public float stepOffset;
@@ -18,7 +18,7 @@ namespace JT
         }
 
         [SerializeField]
-        Settings settings;
+        CharacterControllerSettings characterControllerSettings;
 
         public Vector3 moveQueryStart;
         public Vector3 moveQueryEnd;
@@ -43,24 +43,24 @@ namespace JT
             var go = new GameObject("MoveColl_" + name, typeof(CharacterController));
             moveQueryController = go.GetComponent<CharacterController>();
             moveQueryController.transform.position = transform.position;
-            moveQueryController.slopeLimit = settings.slopeLimit;
-            moveQueryController.stepOffset = settings.stepOffset;
-            moveQueryController.skinWidth = settings.skinWidth;
-            moveQueryController.minMoveDistance = settings.minMoveDistance;
-            moveQueryController.center = settings.center;
-            moveQueryController.radius = settings.radius;
-            moveQueryController.height = settings.height;
+            moveQueryController.slopeLimit = characterControllerSettings.slopeLimit;
+            moveQueryController.stepOffset = characterControllerSettings.stepOffset;
+            moveQueryController.skinWidth = characterControllerSettings.skinWidth;
+            moveQueryController.minMoveDistance = characterControllerSettings.minMoveDistance;
+            moveQueryController.center = characterControllerSettings.center;
+            moveQueryController.radius = characterControllerSettings.radius;
+            moveQueryController.height = characterControllerSettings.height;
         }
 
-        public void UpdateMove()
+        public void UpdateMove(float deltaTime)
         {
-            UpdateMovement();
+            UpdateMovement(deltaTime);
             UpdateGroundTest();
             UpdateMoveQuery();
             UpdateCollision();
         }
 
-        void UpdateMovement()
+        void UpdateMovement(float deltaTime)
         {
             var command = UserCommand.defaultCommand;
 
@@ -89,21 +89,73 @@ namespace JT
                     m_PredictedState.groundCollider != null &&
                     m_PredictedState.groundCollider.gameObject.layer == m_PlatformLayer)
             {
-                if (m_PredictedState.altitude < settings.skinWidth - 0.01f)
+                if (m_PredictedState.altitude < characterControllerSettings.skinWidth - 0.01f)
                 {
                     var platform = m_PredictedState.groundCollider;
-                    var posY = platform.transform.position.y + settings.skinWidth;
+                    var posY = platform.transform.position.y + characterControllerSettings.skinWidth;
                     m_PredictedState.position.y = posY;
                 }
             }
 
-            var deltaPos = Vector3.zero;
-            var velocity = m_PredictedState.velocity;
-            velocity.y = -400.0f * Time.deltaTime;
-            deltaPos = velocity * Time.deltaTime;
-
+            var deltaPos = CalculateMovement(deltaTime);
             moveQueryStart = m_PredictedState.position;
             moveQueryEnd = moveQueryStart + deltaPos;
+        }
+
+        Vector3 CalculateMovement(float deltaTime)
+        {
+            var deltaPos = Vector3.zero;
+
+            var velocity = m_PredictedState.velocity;
+            var playerSpeed = 6.0f;
+            var friction = 6.0f;
+            var acceleration = 3.0f;
+            velocity = CalculateGroundVelocity(velocity, playerSpeed, friction, acceleration, deltaTime);
+            velocity.y = -400.0f * Time.deltaTime;
+            deltaPos = velocity * Time.deltaTime;
+            return deltaPos;
+        }
+
+        Vector3 CalculateGroundVelocity(Vector3 velocity, float playerSpeed, float friction, float acceleration, float deltaTime)
+        {
+            var command = UserCommand.defaultCommand;
+            var moveYawRotation = Quaternion.Euler(0, command.moveYaw, 0);
+            var moveVec = moveYawRotation * Vector3.forward * command.moveMagnitude;
+
+            // Applying friction
+            var groundVelocity = new Vector3(velocity.x, 0, velocity.z);
+            var groundSpeed = groundVelocity.magnitude;
+            var frictionSpeed = Mathf.Max(groundSpeed, 1.0f) * deltaTime * friction;
+            var newGroundSpeed = groundSpeed - frictionSpeed;
+            if (newGroundSpeed < 0)
+                newGroundSpeed = 0;
+            if (groundSpeed > 0)
+                groundVelocity *= (newGroundSpeed / groundSpeed);
+
+            // Doing actual movement (q2 style)
+            var wantedGroundVelocity = moveVec * playerSpeed;
+            var wantedGroundDir = wantedGroundVelocity.normalized;
+            var currentSpeed = Vector3.Dot(wantedGroundDir, groundVelocity);
+            var wantedSpeed = playerSpeed * command.moveMagnitude;
+            var deltaSpeed = wantedSpeed - currentSpeed;
+            if (deltaSpeed > 0.0f)
+            {
+                var accel = deltaTime * acceleration * playerSpeed;
+                var speed_adjustment = Mathf.Clamp(accel, 0.0f, deltaSpeed) * wantedGroundDir;
+                groundVelocity += speed_adjustment;
+            }
+
+            //if (!Game.config.easterBunny)
+            {
+                newGroundSpeed = groundVelocity.magnitude;
+                if (newGroundSpeed > playerSpeed)
+                    groundVelocity *= playerSpeed / newGroundSpeed;
+            }
+
+            velocity.x = groundVelocity.x;
+            velocity.z = groundVelocity.z;
+
+            return velocity;
         }
 
         public void UpdateGroundTest()

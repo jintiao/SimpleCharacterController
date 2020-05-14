@@ -70,7 +70,7 @@ namespace JT
         {
             m_AnimGraphLogic?.UpdateGraphLogic(deltaTime);
 
-            m_AnimGraphState?.UpdatePresentationState(m_LastAnimGraphState == m_AnimGraphState, deltaTime);
+            m_AnimGraphState?.UpdatePresentationState(m_LastAnimGraphState != m_AnimGraphState, deltaTime);
             m_LastAnimGraphState = m_AnimGraphState;
 
             m_AnimGraph.ApplyPresentationState(deltaTime);

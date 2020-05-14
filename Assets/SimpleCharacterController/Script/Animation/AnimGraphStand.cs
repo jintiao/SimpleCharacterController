@@ -135,6 +135,17 @@ namespace JT
 
 #if UNITY_EDITOR
                 footIkJob.settings = m_Settings.footIK;
+                if (m_Settings.footIK.debugRayCast)
+                {
+                    DebugDraw.Sphere(m_LeftFootPos, 0.025f, Color.yellow);
+                    DebugDraw.Sphere(m_RightFootPos, 0.025f, Color.yellow);
+
+                    DebugDraw.Sphere(m_LeftHit.point, 0.015f);
+                    DebugDraw.Sphere(m_RightHit.point, 0.015f);
+
+                    Debug.DrawLine(m_LeftHit.point, m_LeftHit.point + m_LeftHit.normal, Color.green);
+                    Debug.DrawLine(m_RightHit.point, m_RightHit.point + m_RightHit.normal, Color.red);
+                }
 #endif
                 m_FootIk.SetJobData(footIkJob);
             }

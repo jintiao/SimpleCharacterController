@@ -20,6 +20,7 @@ namespace JT
             public float emitRayOffset;
             [Range(0f, 20f)]
             public float maxRayDistance;
+            public bool debugRayCast;
 
             [Space(10)]
             [Range(0f, 1f)]
