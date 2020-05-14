@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8970295f4d324484b87cd313be85bb4f, type: 3}
+  m_Name: AnimGraph_Move8Dir
+  m_EditorClassIdentifier: 
+  animMovePlaySpeed: 1
+  damping: 0.08
+  maxStep: 11
+  blendSpaceNodes:
+  - clip: {fileID: 6564411413370888346, guid: 21c7a29457c13ef4792e2175bc10b398, type: 3}
+    position: {x: 0, y: 1}
+    speed: 1
+    weight: 0.99999994
+    clipLength: 0.6
+  - clip: {fileID: -1516607024341398942, guid: ae6087f321a599c42b166398eb94b2eb, type: 3}
+    position: {x: 0.7, y: 0.7}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: 2589030676165505820, guid: 0318f786f9f0a21429b25d5bd24be8d6, type: 3}
+    position: {x: 1, y: 0}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: 310194702715720006, guid: 611f7683ffc11654ea1702629fe180bd, type: 3}
+    position: {x: 0.7, y: 0.7}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: -8704978693243160924, guid: 51b59d31ac3abc645993f6d242152479, type: 3}
+    position: {x: 0, y: -1}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: -8797101613534645360, guid: bf483f0ebb0f0554c91183c24ae54cad, type: 3}
+    position: {x: -0.7, y: -0.7}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: -4509925718365105540, guid: 4762426df797e1f4f9a77586850604ba, type: 3}
+    position: {x: -1, y: 0}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: 280466557467056306, guid: 348a9f658552fb047bca597f352fa066, type: 3}
+    position: {x: -0.7, y: 0.7}
+    speed: 1
+    weight: 0
+    clipLength: 0.6
+  - clip: {fileID: -5326756213602568225, guid: c6621fbff860e8648bd154e2bb2bcff1, type: 3}
+    position: {x: 0, y: 0}
+    speed: 1
+    weight: 0.000000059604645
+    clipLength: 0.6
+  enableIK: 1

@@ -7,25 +7,14 @@ namespace JT
     [CreateAssetMenu(fileName = "AnimGraph_Stand", menuName = "SimpleCharacterController/AnimGraph/Stand")]
     public class AnimGraphStand : AnimGraphAsset
     {
-        enum StandState
-        {
-            Moving,
-            Standing,
-        }
-
-        public AnimationClip animIdle;
-        public FootIkJob.JobSettings footIK;
-        public string leftToeBone;
-        public string rightToeBone;
-
-        public override IAnimGraphInstance Instatiate(AnimStateController controller, PlayableGraph graph)
-        {
-            var animState = new Instance(controller, graph, this);
-            return animState;
-        }
-
         class Instance : IAnimGraphInstance, IGraphState
         {
+            enum StandState
+            {
+                Moving,
+                Standing,
+            }
+
             AnimGraphStand m_Settings;
             AnimStateData m_AnimState;
             LogicStateData m_PredictedState;
@@ -175,6 +164,17 @@ namespace JT
 
                 return new Vector2(leftOffset, rightOffset);
             }
+        }
+
+        public AnimationClip animIdle;
+        public FootIkJob.JobSettings footIK;
+        public string leftToeBone;
+        public string rightToeBone;
+
+        public override IAnimGraphInstance Instatiate(AnimStateController controller, PlayableGraph graph)
+        {
+            var animState = new Instance(controller, graph, this);
+            return animState;
         }
     }
 }

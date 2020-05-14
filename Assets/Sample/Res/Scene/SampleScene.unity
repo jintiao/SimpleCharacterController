@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121127235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.063, y: -0.426, z: 1.007}
+  m_LocalPosition: {x: -0.063, y: -0.426, z: -0.306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 293464806}
@@ -369,7 +369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445568653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.063, y: -0.333, z: -0.828}
+  m_LocalPosition: {x: -0.063, y: -0.333, z: -1.826}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 293464806}
@@ -597,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900254798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.063, y: -0.337, z: 1.257}
+  m_LocalPosition: {x: -0.063, y: -0.337, z: 0.57299995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 293464806}
@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efbce452ac874c43ae09090951d6de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings:
+  characterControllerSettings:
     slopeLimit: 50
     stepOffset: 0.5
     skinWidth: 0.08
@@ -899,6 +899,7 @@ MonoBehaviour:
     center: {x: 0, y: 0.98, z: 0}
     radius: 0.4
     height: 1.8
+  enableCollisionDetect: 1
   moveQueryStart: {x: 0, y: 0, z: 0}
   moveQueryEnd: {x: 0, y: 0, z: 0}
   moveQueryResult: {x: 0, y: 0, z: 0}
@@ -915,7 +916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66438e4cacd557946b56736c9685b14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CharacterSettings: {fileID: 0}
+  m_CharacterSettings: {fileID: 11400000, guid: 997faf6919385fc4c9eb02c662d79715,
+    type: 2}
 --- !u!1001 &4026858376212899610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -958,6 +960,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 95f1f02061a8fcb40aa1a73c4e9ea060, type: 2}
+    - target: {fileID: 5817851879915992515, guid: e2c45064d0d16014a917631f45d796d4,
+        type: 3}
+      propertyPath: animStateDefinition
+      value: 
+      objectReference: {fileID: 11400000, guid: b81377424f9c19d45a49270efeedbf5a,
+        type: 2}
     - target: {fileID: 5855691950906563008, guid: e2c45064d0d16014a917631f45d796d4,
         type: 3}
       propertyPath: m_Name

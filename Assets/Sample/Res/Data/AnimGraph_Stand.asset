@@ -20,6 +20,7 @@ MonoBehaviour:
     enabled: 1
     emitRayOffset: 0.5
     maxRayDistance: 0.75
+    debugRayCast: 0
     maxStepSize: 0.55
     weightShiftAngle: 17.5
     weightShiftHorizontal: -0.5

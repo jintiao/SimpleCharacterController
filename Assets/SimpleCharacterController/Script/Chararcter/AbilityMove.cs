@@ -19,18 +19,20 @@ namespace JT
 
         [SerializeField]
         CharacterControllerSettings characterControllerSettings;
-
-        public Vector3 moveQueryStart;
-        public Vector3 moveQueryEnd;
-        public Vector3 moveQueryResult;
-        CharacterController moveQueryController;
-        public bool moveQueryIsGrounded;
+        [SerializeField]
+        bool enableCollisionDetect;
 
         LogicStateData m_PredictedState;
 
         int m_DefaultLayer;
         int m_PlatformLayer;
         int m_Mask;
+
+        public Vector3 moveQueryStart;
+        public Vector3 moveQueryEnd;
+        public Vector3 moveQueryResult;
+        CharacterController moveQueryController;
+        public bool moveQueryIsGrounded;
 
         void Start()
         {
@@ -55,9 +57,13 @@ namespace JT
         public void UpdateMove(float deltaTime)
         {
             UpdateMovement(deltaTime);
-            UpdateGroundTest();
-            UpdateMoveQuery();
-            UpdateCollision();
+
+            if (enableCollisionDetect)
+            {
+                UpdateGroundTest();
+                UpdateMoveQuery();
+                UpdateCollision();
+            }
         }
 
         void UpdateMovement(float deltaTime)
@@ -98,8 +104,16 @@ namespace JT
             }
 
             var deltaPos = CalculateMovement(deltaTime);
+
+            var oldPos = m_PredictedState.position;
+            var newPos = oldPos + deltaPos;
+
             moveQueryStart = m_PredictedState.position;
             moveQueryEnd = moveQueryStart + deltaPos;
+            moveQueryResult = moveQueryEnd;
+
+            m_PredictedState.position = moveQueryResult;
+            m_PredictedState.velocity = (newPos - oldPos) / Time.deltaTime;
         }
 
         Vector3 CalculateMovement(float deltaTime)
@@ -111,7 +125,11 @@ namespace JT
             var friction = 6.0f;
             var acceleration = 3.0f;
             velocity = CalculateGroundVelocity(velocity, playerSpeed, friction, acceleration, deltaTime);
-            velocity.y = -400.0f * Time.deltaTime;
+
+            // 确保角色紧贴地面
+            if (enableCollisionDetect)
+                velocity.y = -400.0f * Time.deltaTime;
+
             deltaPos = velocity * Time.deltaTime;
             return deltaPos;
         }
