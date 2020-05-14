@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animIdle: {fileID: -3100369314251171874, guid: 884ca6233e161be4b8f1dbf2e4988b94,
     type: 3}
+  footIK:
+    leftToeStandPos: {x: 0, y: 0, z: 0}
+    rightToeStandPos: {x: 0, y: 0, z: 0}
+    enabled: 0
+  leftToeBone: Left_Toes
+  rightToeBone: Right_Toes

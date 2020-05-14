@@ -20,14 +20,19 @@ namespace JT
 
         class Instance : IAnimGraphInstance, IGraphState
         {
+            AnimGraphStand m_Settings;
+            AnimStateData m_AnimState;
+
             AnimationScriptPlayable m_FootIk;
             AnimationMixerPlayable m_LocomotionMixer;
             AnimationClipPlayable m_AnimIdle;
 
-            AnimStateData m_AnimState;
+            Vector3 m_LeftFootPos;
+            Vector3 m_RightFootPos;
 
             public Instance(AnimStateController controller, PlayableGraph graph, AnimGraphStand settings)
             {
+                m_Settings = settings;
                 m_AnimState = controller.GetComponent<AnimStateData>();
 
                 m_LocomotionMixer = AnimationMixerPlayable.Create(graph, (int)LocoMixerPort.Count);
@@ -38,14 +43,14 @@ namespace JT
 
                 var animator = controller.GetComponent<Animator>();
                 var skeleton = controller.GetComponent<Skeleton>();
-                //var leftToes = skeleton.bones[skeleton.GetBoneIndex(settings.leftToeBone.GetHashCode())];
-                //var rightToes = skeleton.bones[skeleton.GetBoneIndex(settings.rightToeBone.GetHashCode())];
+                var leftToes = skeleton.bones[skeleton.GetBoneIndex(settings.leftToeBone.GetHashCode())];
+                var rightToes = skeleton.bones[skeleton.GetBoneIndex(settings.rightToeBone.GetHashCode())];
 
                 var ikJob = new FootIkJob
                 {
                     settings = settings.footIK,
-                    //leftToe = animator.BindStreamTransform(leftToes),
-                    //rightToe = animator.BindStreamTransform(rightToes)
+                    leftToe = animator.BindStreamTransform(leftToes),
+                    rightToe = animator.BindStreamTransform(rightToes)
                 };
                 m_FootIk = AnimationScriptPlayable.Create(graph, ikJob, 1);
                 graph.Connect(m_LocomotionMixer, 0, m_FootIk, 0);
@@ -78,6 +83,24 @@ namespace JT
             public void UpdatePresentationState(bool firstUpdate, float deltaTime)
             {
                 var footIkJob = m_FootIk.GetJobData<FootIkJob>();
+                if (m_Settings.footIK.enabled)
+                {
+                    if (firstUpdate)
+                    {
+                        var rotation = Quaternion.Euler(0f, m_AnimState.rotation, 0f);
+                        m_LeftFootPos = rotation * m_Settings.footIK.leftToeStandPos + m_AnimState.position;
+                        m_RightFootPos = rotation * m_Settings.footIK.rightToeStandPos + m_AnimState.position;
+                    }
+
+                    if (firstUpdate)
+                    {
+                        footIkJob.ikWeight = 0.0f;
+                    }
+                }
+
+#if UNITY_EDITOR
+                footIkJob.settings = m_Settings.footIK;
+#endif
                 m_FootIk.SetJobData(footIkJob);
             }
 

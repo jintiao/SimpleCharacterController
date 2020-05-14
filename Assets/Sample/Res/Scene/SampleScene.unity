@@ -274,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445568653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.063, y: -0.333, z: -0.631}
+  m_LocalPosition: {x: -0.063, y: -0.333, z: -0.828}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 293464806}
@@ -704,17 +704,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    slopeLimit: 45
-    stepOffset: 0.3
+    slopeLimit: 50
+    stepOffset: 0.5
     skinWidth: 0.08
     minMoveDistance: 0.001
-    center: {x: 0, y: 0.95, z: 0}
-    radius: 0.5
-    height: 1.9
+    center: {x: 0, y: 0.98, z: 0}
+    radius: 0.4
+    height: 1.8
   moveQueryStart: {x: 0, y: 0, z: 0}
   moveQueryEnd: {x: 0, y: 0, z: 0}
   moveQueryResult: {x: 0, y: 0, z: 0}
   moveQueryIsGrounded: 0
+--- !u!114 &1312489810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312489807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66438e4cacd557946b56736c9685b14d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CharacterSettings: {fileID: 0}
 --- !u!1001 &4026858376212899610
 PrefabInstance:
   m_ObjectHideFlags: 0

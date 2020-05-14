@@ -52,7 +52,7 @@ namespace JT
             moveQueryController.height = settings.height;
         }
 
-        void Update()
+        public void UpdateMove()
         {
             UpdateMovement();
             UpdateGroundTest();

@@ -15,8 +15,14 @@ namespace JT
         IGraphState m_LastAnimGraphState;
         PlayableGraph m_PlayableGraph;
 
+        AnimStateData m_AnimState;
+        LogicStateData m_PredictedState;
+
         void Start()
         {
+            m_AnimState = GetComponent<AnimStateData>();
+            m_PredictedState = GetComponent<LogicStateData>();
+
             m_PlayableGraph = PlayableGraph.Create(name);
             m_AnimGraph = animStateDefinition.Instatiate(this, m_PlayableGraph);
             m_AnimGraphLogic = m_AnimGraph as IGraphLogic;
@@ -42,14 +48,32 @@ namespace JT
             }
         }
 
-        private void Update()
+        public void UpdateAnim(float deltaTime)
         {
-            m_AnimGraphLogic?.UpdateGraphLogic(Time.deltaTime);
+            UpdateAnimState();
+            UpdateAnimGraph(deltaTime);
+        }
 
-            m_AnimGraphState?.UpdatePresentationState(m_LastAnimGraphState == m_AnimGraphState, Time.deltaTime);
+        void UpdateAnimState()
+        {
+            m_AnimState.position = m_PredictedState.position;
+            m_AnimState.previousCharLocoState = m_AnimState.charLocoState;
+
+            var groundMoveVec = Vector3.ProjectOnPlane(m_PredictedState.velocity, Vector3.up);
+            m_AnimState.moveYaw = Vector3.Angle(Vector3.forward, groundMoveVec);
+            var cross = Vector3.Cross(Vector3.forward, groundMoveVec);
+            if (cross.y < 0)
+                m_AnimState.moveYaw = 360 - m_AnimState.moveYaw;
+        }
+
+        void UpdateAnimGraph(float deltaTime)
+        {
+            m_AnimGraphLogic?.UpdateGraphLogic(deltaTime);
+
+            m_AnimGraphState?.UpdatePresentationState(m_LastAnimGraphState == m_AnimGraphState, deltaTime);
             m_LastAnimGraphState = m_AnimGraphState;
 
-            m_AnimGraph.ApplyPresentationState(Time.deltaTime);
+            m_AnimGraph.ApplyPresentationState(deltaTime);
         }
     }
 }
