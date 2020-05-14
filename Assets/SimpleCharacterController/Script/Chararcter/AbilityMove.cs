@@ -17,10 +17,8 @@ namespace JT
             public float height;
         }
 
-        [SerializeField]
-        CharacterControllerSettings characterControllerSettings;
-        [SerializeField]
-        bool enableCollisionDetect;
+        public CharacterControllerSettings characterControllerSettings;
+        public bool enableCollisionDetect;
 
         LogicStateData m_PredictedState;
 
@@ -122,8 +120,8 @@ namespace JT
 
             var velocity = m_PredictedState.velocity;
             var playerSpeed = 6.0f;
-            var friction = 6.0f;
-            var acceleration = 3.0f;
+            var friction = 16.0f;
+            var acceleration = 30.0f;
             velocity = CalculateGroundVelocity(velocity, playerSpeed, friction, acceleration, deltaTime);
 
             // 确保角色紧贴地面
@@ -164,11 +162,11 @@ namespace JT
             }
 
             //if (!Game.config.easterBunny)
-            {
-                newGroundSpeed = groundVelocity.magnitude;
-                if (newGroundSpeed > playerSpeed)
-                    groundVelocity *= playerSpeed / newGroundSpeed;
-            }
+            //{
+            //    newGroundSpeed = groundVelocity.magnitude;
+            //    if (newGroundSpeed > playerSpeed)
+            //        groundVelocity *= playerSpeed / newGroundSpeed;
+            //}
 
             velocity.x = groundVelocity.x;
             velocity.z = groundVelocity.z;

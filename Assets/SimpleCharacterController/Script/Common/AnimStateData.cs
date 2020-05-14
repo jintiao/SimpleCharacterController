@@ -14,10 +14,10 @@ namespace JT
         public LocomotionState charLocoState;
         public LocomotionState previousCharLocoState;
 
+        public float moveAngleLocal;
+        public float inAirTime;
         public Vector2 footIkOffset;
         public Vector3 footIkNormalLeft;
         public Vector3 footIkNormaRight;
-
-        public float moveAngleLocal;
     }
 }
