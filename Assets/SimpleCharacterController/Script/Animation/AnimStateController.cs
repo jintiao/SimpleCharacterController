@@ -58,6 +58,7 @@ namespace JT
         {
             m_AnimState.position = m_PredictedState.position;
             m_AnimState.previousCharLocoState = m_AnimState.charLocoState;
+            m_AnimState.charLocoState = m_PredictedState.locoState;
 
             var groundMoveVec = Vector3.ProjectOnPlane(m_PredictedState.velocity, Vector3.up);
             m_AnimState.moveYaw = Vector3.Angle(Vector3.forward, groundMoveVec);

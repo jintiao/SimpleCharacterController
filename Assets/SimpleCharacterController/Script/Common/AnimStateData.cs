@@ -11,8 +11,8 @@ namespace JT
         public Vector2 locomotionVector;
         public float locomotionPhase;
 
-        public LocoState charLocoState;
-        public LocoState previousCharLocoState;
+        public LocomotionState charLocoState;
+        public LocomotionState previousCharLocoState;
 
         public Vector2 footIkOffset;
         public Vector3 footIkNormalLeft;

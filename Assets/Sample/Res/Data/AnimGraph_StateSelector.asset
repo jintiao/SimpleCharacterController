@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7af509e2b8ab0428b0d6d84ed001d5, type: 3}
+  m_Name: AnimGraph_StateSelector
+  m_EditorClassIdentifier: 
+  controllers:
+  - animationState: 0
+    template: {fileID: 11400000, guid: 31f02dc7343ebdf4ca962981c479afe2, type: 2}
+    transitionTime: 0.08
+    customTransitions: []
+  - animationState: 1
+    template: {fileID: 11400000, guid: b81377424f9c19d45a49270efeedbf5a, type: 2}
+    transitionTime: 0.2
+    customTransitions: []

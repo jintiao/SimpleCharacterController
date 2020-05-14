@@ -754,12 +754,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e63a49e8726f49047a9cffb93f75f756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1312489815}
   offset: {x: -2, y: 2, z: -5}
 --- !u!1 &1150959442
 GameObject:
@@ -918,6 +918,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CharacterSettings: {fileID: 11400000, guid: 997faf6919385fc4c9eb02c662d79715,
     type: 2}
+--- !u!4 &1312489815 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7428899881696144339, guid: e2c45064d0d16014a917631f45d796d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4026858376212899610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4026858376212899610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -964,7 +970,7 @@ PrefabInstance:
         type: 3}
       propertyPath: animStateDefinition
       value: 
-      objectReference: {fileID: 11400000, guid: b81377424f9c19d45a49270efeedbf5a,
+      objectReference: {fileID: 11400000, guid: a6126ddff87df054e8407b2eda2daf2d,
         type: 2}
     - target: {fileID: 5855691950906563008, guid: e2c45064d0d16014a917631f45d796d4,
         type: 3}

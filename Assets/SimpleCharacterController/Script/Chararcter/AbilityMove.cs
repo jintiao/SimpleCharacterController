@@ -70,7 +70,7 @@ namespace JT
         {
             var command = UserCommand.defaultCommand;
 
-            var newPhase = LocoState.MaxValue;
+            var newPhase = LocomotionState.MaxValue;
             var isOnGround = m_PredictedState.isOnGround;
             var isMoveWanted = command.moveMagnitude != 0.0f;
 
@@ -78,20 +78,20 @@ namespace JT
             {
                 if (isMoveWanted)
                 {
-                    newPhase = LocoState.GroundMove;
+                    newPhase = LocomotionState.GroundMove;
                 }
                 else
                 {
-                    newPhase = LocoState.Stand;
+                    newPhase = LocomotionState.Stand;
                 }
             }
 
-            if (newPhase != LocoState.MaxValue && newPhase != m_PredictedState.locoState)
+            if (newPhase != LocomotionState.MaxValue && newPhase != m_PredictedState.locoState)
             {
                 m_PredictedState.locoState = newPhase;
             }
 
-            if (m_PredictedState.locoState == LocoState.Stand &&
+            if (m_PredictedState.locoState == LocomotionState.Stand &&
                     m_PredictedState.groundCollider != null &&
                     m_PredictedState.groundCollider.gameObject.layer == m_PlatformLayer)
             {
@@ -213,16 +213,16 @@ namespace JT
                 {
                     if (UserCommand.defaultCommand.moveMagnitude != 0.0f)
                     {
-                        m_PredictedState.locoState = LocoState.GroundMove;
+                        m_PredictedState.locoState = LocomotionState.GroundMove;
                     }
                     else
                     {
-                        m_PredictedState.locoState = LocoState.Stand;
+                        m_PredictedState.locoState = LocomotionState.Stand;
                     }
                 }
                 else
                 {
-                    m_PredictedState.locoState = LocoState.InAir;
+                    m_PredictedState.locoState = LocomotionState.InAir;
                 }
             }
 
