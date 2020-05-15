@@ -17,5 +17,8 @@ public class GameLoop : MonoBehaviour
         float magnitude = Mathf.Clamp(moveInput.magnitude, 0, 1);
         command.moveYaw = angle;
         command.moveMagnitude = magnitude;
+
+        command.jump = Input.GetKeyDown(KeyCode.Space);
+        command.boost = Input.GetKeyDown(KeyCode.LeftControl);
     }
 }

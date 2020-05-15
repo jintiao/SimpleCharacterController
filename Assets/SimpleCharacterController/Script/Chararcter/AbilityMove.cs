@@ -6,6 +6,21 @@ namespace JT
     public class AbilityMove : MonoBehaviour
     {
         [Serializable]
+        public struct MovementSettings
+        {
+            public float runSpeed;
+            public float sprintSpeed;
+            public float acceleration;
+            public float friction;
+            public float airAcceleration;
+            public float airFriction;
+            public float jumpAscentDuration;
+            public float jumpAscentHeight;
+            public float gravity;
+            public float maxFallVelocity;
+        }
+
+        [Serializable]
         public struct CharacterControllerSettings
         {
             public float slopeLimit;
@@ -17,6 +32,7 @@ namespace JT
             public float height;
         }
 
+        public MovementSettings m_MovementSettings;
         public CharacterControllerSettings characterControllerSettings;
         public bool enableCollisionDetect;
 
@@ -69,6 +85,8 @@ namespace JT
             var command = UserCommand.defaultCommand;
 
             var newPhase = LocomotionState.MaxValue;
+            var phaseDuration = Time.time - m_PredictedState.locoStartTime;
+
             var isOnGround = m_PredictedState.isOnGround;
             var isMoveWanted = command.moveMagnitude != 0.0f;
 
@@ -84,9 +102,28 @@ namespace JT
                 }
             }
 
+            if (isOnGround)
+            {
+                m_PredictedState.jumpCount = 0;
+                if (command.jump)
+                {
+                    m_PredictedState.jumpCount = 1;
+                    newPhase = LocomotionState.Jump;
+                }
+            }
+
+            if (m_PredictedState.locoState == LocomotionState.Jump)
+            {
+                if (phaseDuration > m_MovementSettings.jumpAscentDuration)
+                {
+                    newPhase = LocomotionState.InAir;
+                }
+            }
+
             if (newPhase != LocomotionState.MaxValue && newPhase != m_PredictedState.locoState)
             {
                 m_PredictedState.locoState = newPhase;
+                m_PredictedState.locoStartTime = Time.time;
             }
 
             if (m_PredictedState.locoState == LocomotionState.Stand &&
@@ -118,17 +155,27 @@ namespace JT
         {
             var deltaPos = Vector3.zero;
 
-            var velocity = m_PredictedState.velocity;
-            var playerSpeed = 6.0f;
-            var friction = 16.0f;
-            var acceleration = 30.0f;
-            velocity = CalculateGroundVelocity(velocity, playerSpeed, friction, acceleration, deltaTime);
+            var speed = m_MovementSettings.runSpeed;
+            var velocity = m_PredictedState.velocity; 
+            velocity = CalculateGroundVelocity(velocity, speed, m_MovementSettings.friction, m_MovementSettings.acceleration, deltaTime);
 
-            // 确保角色紧贴地面
-            if (enableCollisionDetect)
-                velocity.y = -400.0f * Time.deltaTime;
+            switch (m_PredictedState.locoState)
+            {
+                case LocomotionState.Jump:
+                    velocity.y = m_MovementSettings.jumpAscentHeight / m_MovementSettings.jumpAscentDuration;
+                    break;
+                case LocomotionState.InAir:
+                    velocity.y += -m_MovementSettings.gravity * deltaTime;
+                    if (velocity.y < -m_MovementSettings.maxFallVelocity)
+                        velocity.y = -m_MovementSettings.maxFallVelocity;
+                    break;
+                default:
+                    if (enableCollisionDetect)
+                        velocity.y = -400.0f * deltaTime;
+                    break;
+            }
 
-            deltaPos = velocity * Time.deltaTime;
+            deltaPos = velocity * deltaTime;
             return deltaPos;
         }
 

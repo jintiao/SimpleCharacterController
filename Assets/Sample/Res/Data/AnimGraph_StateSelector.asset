@@ -21,3 +21,9 @@ MonoBehaviour:
     template: {fileID: 11400000, guid: b81377424f9c19d45a49270efeedbf5a, type: 2}
     transitionTime: 0.2
     customTransitions: []
+  - animationState: 4
+    template: {fileID: 11400000, guid: 8023374594ae4914784a1ab5da69e984, type: 2}
+    transitionTime: 0.7
+    customTransitions:
+    - sourceState: 1
+      transtionTime: 0.1

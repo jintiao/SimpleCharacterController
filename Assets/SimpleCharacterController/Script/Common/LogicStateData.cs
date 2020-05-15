@@ -7,7 +7,13 @@ namespace JT
     {
         public Vector3 position;
         public Vector3 velocity;
+
         public LocomotionState locoState;
+        public float locoStartTime;
+
+        public int jumpCount;
+
+        public int sprinting;
 
         public float altitude;
         public Collider groundCollider;

@@ -16,6 +16,7 @@ namespace JT
 
         public float moveAngleLocal;
         public float inAirTime;
+        public float jumpTime;
         public Vector2 footIkOffset;
         public Vector3 footIkNormalLeft;
         public Vector3 footIkNormaRight;

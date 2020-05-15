@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51cb89f29a502c7468e8e543da9b8027, type: 3}
-  m_Name: AnimGraph_InAir
+  m_Script: {fileID: 11500000, guid: fa1a60dd265c1e44695210f56715cc3c, type: 3}
+  m_Name: AnimGraph_Jump
   m_EditorClassIdentifier: 
-  animInAir: {fileID: -2702400367771620057, guid: 19f9e27978b67084e94bc38f160450eb,
-    type: 3}
+  animJump: {fileID: 0}
+  jumpHeight: 1.7

@@ -6,6 +6,8 @@ namespace JT
     {
         public float moveYaw;
         public float moveMagnitude;
+        public bool jump;
+        public bool boost;
 
         public static UserCommand defaultCommand = new UserCommand();
     }
