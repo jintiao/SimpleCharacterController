@@ -876,6 +876,9 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   locoState: 0
+  locoStartTime: 0
+  jumpCount: 0
+  sprinting: 0
   altitude: 0
   groundCollider: {fileID: 0}
   groundNormal: {x: 0, y: 0, z: 0}
@@ -891,6 +894,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efbce452ac874c43ae09090951d6de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MovementSettings:
+    runSpeed: 6
+    sprintSpeed: 8
+    acceleration: 30
+    friction: 16
+    airAcceleration: 1
+    airFriction: 0.5
+    jumpAscentDuration: 0.3
+    jumpAscentHeight: 1
+    gravity: 18
+    maxFallVelocity: 50
   characterControllerSettings:
     slopeLimit: 50
     stepOffset: 0.5
@@ -970,7 +984,7 @@ PrefabInstance:
         type: 3}
       propertyPath: animStateDefinition
       value: 
-      objectReference: {fileID: 11400000, guid: a6126ddff87df054e8407b2eda2daf2d,
+      objectReference: {fileID: 11400000, guid: 841a34114a4751d43977c0e05c4f1e4d,
         type: 2}
     - target: {fileID: 5855691950906563008, guid: e2c45064d0d16014a917631f45d796d4,
         type: 3}

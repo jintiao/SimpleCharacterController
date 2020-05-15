@@ -27,3 +27,9 @@ MonoBehaviour:
     customTransitions:
     - sourceState: 1
       transtionTime: 0.1
+  - animationState: 2
+    template: {fileID: 11400000, guid: dfe30814ba5436f419804fcfacb638f1, type: 2}
+    transitionTime: 0
+    customTransitions:
+    - sourceState: 1
+      transtionTime: 0.1
