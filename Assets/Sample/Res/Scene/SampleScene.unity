@@ -930,6 +930,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66438e4cacd557946b56736c9685b14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 1
+  characterCamera: {fileID: 963194227}
   m_CharacterSettings: {fileID: 11400000, guid: 997faf6919385fc4c9eb02c662d79715,
     type: 2}
 --- !u!4 &1312489815 stripped

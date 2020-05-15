@@ -3,10 +3,16 @@ using UnityEngine;
 
 namespace JT
 {
+    public enum ControllerMode
+    {
+        Free,
+        LockDir,
+    }
+
     public class SimpleCharacterController : MonoBehaviour
     {
-        [SerializeField]
-        CharacterSettings m_CharacterSettings;
+        public ControllerMode controllerMode;
+        public Camera characterCamera;
 
         AbilityMove m_AbilityMove;
         AnimStateController m_AnimStateController;
