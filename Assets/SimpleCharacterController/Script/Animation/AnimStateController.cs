@@ -60,6 +60,10 @@ namespace JT
             m_AnimState.previousCharLocoState = m_AnimState.charLocoState;
             m_AnimState.charLocoState = m_PredictedState.locoState;
 
+            var command = UserCommand.defaultCommand;
+            m_AnimState.aimYaw = command.lookYaw;
+            m_AnimState.aimPitch = command.lookPitch;
+
             var groundMoveVec = Vector3.ProjectOnPlane(m_PredictedState.velocity, Vector3.up);
             m_AnimState.moveYaw = Vector3.Angle(Vector3.forward, groundMoveVec);
             var cross = Vector3.Cross(Vector3.forward, groundMoveVec);

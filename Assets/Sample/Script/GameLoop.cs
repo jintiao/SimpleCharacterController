@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
+    public float mouseSensitivity = 1.5f;
+
     void Update()
     {
         UpdateInput(ref UserCommand.defaultCommand);
@@ -17,6 +19,13 @@ public class GameLoop : MonoBehaviour
         float magnitude = Mathf.Clamp(moveInput.magnitude, 0, 1);
         command.moveYaw = angle;
         command.moveMagnitude = magnitude;
+
+        var deltaMousePos = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        command.lookYaw += (deltaMousePos.x * mouseSensitivity) % 360;
+        command.lookYaw = command.lookYaw % 360;
+        while (command.lookYaw < 0) command.lookYaw += 360;
+        command.lookPitch += deltaMousePos.y * mouseSensitivity;
+        command.lookPitch = Mathf.Clamp(command.lookPitch, 0, 180);
 
         command.jump = Input.GetKeyDown(KeyCode.Space);
         command.boost = Input.GetKeyDown(KeyCode.LeftControl);

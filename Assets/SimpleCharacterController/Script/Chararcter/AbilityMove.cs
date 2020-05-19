@@ -182,7 +182,7 @@ namespace JT
         Vector3 CalculateGroundVelocity(Vector3 velocity, float playerSpeed, float friction, float acceleration, float deltaTime)
         {
             var command = UserCommand.defaultCommand;
-            var moveYawRotation = Quaternion.Euler(0, command.moveYaw, 0);
+            var moveYawRotation = Quaternion.Euler(0, command.lookYaw + command.moveYaw, 0);
             var moveVec = moveYawRotation * Vector3.forward * command.moveMagnitude;
 
             // Applying friction
