@@ -14,6 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animIdle: {fileID: -3100369314251171874, guid: 884ca6233e161be4b8f1dbf2e4988b94,
     type: 3}
+  animTurnL: {fileID: -6186128965070831934, guid: 083c4253aca49e6408fca4cb92f33e55,
+    type: 3}
+  animTurnR: {fileID: 996421282826589158, guid: 720de2617b3a47e448de9270ac565e7e,
+    type: 3}
+  animAimLeft: {fileID: -825270989962368294, guid: 70ad1603f91a8fd4095c258b2887810a,
+    type: 3}
+  animAimMid: {fileID: 1202485215534647483, guid: 199aededd00d2fd40a322a0cabb108fe,
+    type: 3}
+  animAimRight: {fileID: 2619210078988228653, guid: 9ade9c9896a17984f81eac2eeb6dea87,
+    type: 3}
+  animTurnAngle: 90
+  aimTurnLocalThreshold: 90
+  aimYawAngle: 90
+  turnSpeed: 120
+  turnThreshold: 120
+  turnTransitionSpeed: 16
   footIK:
     leftToeStandPos: {x: 0.18, y: 0.042, z: 0.315}
     rightToeStandPos: {x: -0.18, y: 0.042, z: -0.49}

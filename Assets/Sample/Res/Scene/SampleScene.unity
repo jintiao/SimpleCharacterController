@@ -465,6 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a917c700411ad24c8742ac2b2e49176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseSensitivity: 1.5
 --- !u!4 &598560838
 Transform:
   m_ObjectHideFlags: 0
@@ -741,7 +742,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.06622725, y: -0.000000017168608, z: 0.0000000011395582,
+  m_LocalRotation: {x: -0.06622725, y: -0.000000017168544, z: 0.0000000011385562,
     w: -0.99780464}
   m_LocalPosition: {x: -2.62, y: 7.62, z: -0.6099999}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1019,7 +1020,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580248152}
-  m_LocalRotation: {x: -0.06622725, y: -0.000000017168608, z: 0.0000000011395582,
+  m_LocalRotation: {x: -0.06622725, y: -0.000000017168544, z: 0.0000000011385562,
     w: -0.99780464}
   m_LocalPosition: {x: -2.62, y: 7.62, z: -0.6099999}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1170,6 +1171,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 841a34114a4751d43977c0e05c4f1e4d,
         type: 2}
+    - target: {fileID: 5817851879915992515, guid: e2c45064d0d16014a917631f45d796d4,
+        type: 3}
+      propertyPath: enableAnimatorEvent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5855691950906563008, guid: e2c45064d0d16014a917631f45d796d4,
         type: 3}
       propertyPath: m_Name

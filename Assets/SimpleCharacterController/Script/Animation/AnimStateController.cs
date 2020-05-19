@@ -9,6 +9,8 @@ namespace JT
         [SerializeField]
         public AnimGraphAsset animStateDefinition;
 
+        public bool enableAnimatorEvent;
+
         IAnimGraphInstance m_AnimGraph;
         IGraphLogic m_AnimGraphLogic;
         IGraphState m_AnimGraphState;
@@ -35,6 +37,7 @@ namespace JT
             m_AnimGraph.GetPlayableOutput(0, ref outputPlayable, ref outputPort);
 
             var animator = GetComponentInChildren<Animator>();
+            animator.fireEvents = enableAnimatorEvent;
             var animationOutput = AnimationPlayableOutput.Create(m_PlayableGraph, "Animator", animator);
             animationOutput.SetSourcePlayable(outputPlayable, outputPort);
         }
