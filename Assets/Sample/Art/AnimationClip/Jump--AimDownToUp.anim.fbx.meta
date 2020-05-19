@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: aa862d6cf1d5ac949a720c00c871c101
+guid: 8364ac8080a94bd4a8492604546edaf3
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 6806221031296916725
-    second: Aim_DownToUp
+    second: Jump_Aim_DownToUp
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -19,37 +19,17 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: Skeleton/Root_Motion
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'Left_LowerLeg'
-      : position error = 7.233059 mm\n\t'Left_Foot' : position error = 8.348194 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: "\nClip 'AimDownToUp' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'UpperChest' has translation animation that
-      will be discarded.\n\t'Neck_Twist_A' has translation animation that will be
-      discarded.\n\t'Neck_Twist_A' has scale animation that will be discarded.\n\t'Neck_Twist_B'
-      has translation animation that will be discarded.\n\t'Neck_Twist_B' has scale
-      animation that will be discarded.\n\t'Head' has translation animation that
-      will be discarded.\n\t'Left_Shoulder' has translation animation that will be
-      discarded.\n\t'Right_Shoulder' has translation animation that will be discarded.\n"
-    animationRetargetingWarnings: "\nRetargeting quality report for clip 'AimDownToUp':\n\tLeftLowerLeg
-      average position error 9.2 mm and maximum position error 9.2 mm at time 0:14
-      (77.8%) Frame 14\n\tLeftFoot average position error 15.2 mm and maximum position
-      error 15.2 mm at time 0:18 (100.0%) Frame 18\n\tRightLowerLeg average position
-      error 14.8 mm and maximum position error 14.8 mm at time 0:14 (77.8%) Frame
-      14\n\tRightFoot average position error 9.3 mm and maximum position error 9.3
-      mm at time 0:13 (72.2%) Frame 13\n\tLeftUpperArm average position error 13.9
-      mm and maximum position error 15.1 mm at time 0: 3 (16.7%) Frame 3\n\tLeftLowerArm
-      average position error 13.3 mm and maximum position error 15.3 mm at time 0:
-      9 (50.0%) Frame 9\n\tLeftHand average position error 13.9 mm and maximum position
-      error 15.2 mm at time 0: 0 (0.0%) Frame 0\n\tRightUpperArm average position
-      error 23.9 mm and maximum position error 40.3 mm at time 0:18 (100.0%) Frame
-      18\n\tRightLowerArm average position error 23.9 mm and maximum position error
-      40.3 mm at time 0:18 (100.0%) Frame 18\n\tRightHand average position error
-      23.9 mm and maximum position error 40.3 mm at time 0:18 (100.0%) Frame 18\n\tHead
-      average position error 17.0 mm and maximum position error 22.4 mm at time 0:18
-      (100.0%) Frame 18\n"
-    animationDoRetargetingWarnings: 1
+      to improve retargeting quality.\n\t'Neck_Twist_A' has translation animation
+      that will be discarded.\n\t'Neck_Twist_A' has scale animation that will be
+      discarded.\n\t'Neck_Twist_B' has translation animation that will be discarded.\n\t'Neck_Twist_B'
+      has scale animation that will be discarded.\n\t'Head' has translation animation
+      that will be discarded.\n"
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
     animationCompression: 3
@@ -61,11 +41,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Aim_DownToUp
+      name: Jump_Aim_DownToUp
       takeName: AimDownToUp
       internalID: 0
-      firstFrame: 0
-      lastFrame: 18
+      firstFrame: 12
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -82,13 +62,13 @@ ModelImporter:
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
-      bodyMask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000000000000000000
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 9
+      additiveReferencePoseFrame: 21
     isReadable: 0
   meshes:
     lODScreenPercentages: []
