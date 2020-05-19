@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Playables;
 
 namespace JT
@@ -11,7 +12,12 @@ namespace JT
         {
             AnimGraphMove8Dir m_Settings;
             AnimStateData m_AnimState;
+
+            AnimationLayerMixerPlayable m_LocomotionMixer;
+            AnimationClipPlayable m_AnimAim;
             BlendTree2d m_BlendTree;
+
+            float m_AimTimeFactor;
 
             Vector2 m_CurrentVelocity;
             float m_PlaySpeed;
@@ -21,19 +27,37 @@ namespace JT
                 m_Settings = settings;
                 m_AnimState = controller.GetComponent<AnimStateData>();
 
+                m_LocomotionMixer = AnimationLayerMixerPlayable.Create(graph, 3);
+
                 m_BlendTree = new BlendTree2d(graph, settings.blendSpaceNodes);
                 m_BlendTree.masterSpeed = settings.animMovePlaySpeed;
+                graph.Connect(m_BlendTree.rootPlayable, 0, m_LocomotionMixer, 0);
+                m_LocomotionMixer.SetInputWeight(0, 1.0f);
+
+                if (settings.animAim != null)
+                {
+                    m_AnimAim = AnimationClipPlayable.Create(graph, settings.animAim);
+                    m_AnimAim.SetApplyFootIK(false);
+                    m_AnimAim.Pause();
+                    m_AimTimeFactor = m_AnimAim.GetAnimationClip().length / 180.0f;
+
+                    graph.Connect(m_AnimAim, 0, m_LocomotionMixer, 1);
+                    m_LocomotionMixer.SetInputWeight(1, 1.0f);
+                    m_LocomotionMixer.SetLayerAdditive(1, true);
+                }
             }
 
             public void ApplyPresentationState(float deltaTime)
             {
                 m_BlendTree.UpdateGraph();
                 m_BlendTree.SetPhase(m_AnimState.locomotionPhase);
+
+                m_AnimAim.SetTime(m_AnimState.aimPitch * m_AimTimeFactor);
             }
 
             public void GetPlayableOutput(int portId, ref Playable playable, ref int playablePort)
             {
-                playable = m_BlendTree.rootPlayable;
+                playable = m_LocomotionMixer;
                 playablePort = 0;
             }
 
@@ -52,7 +76,9 @@ namespace JT
                 m_BlendTree.footIk = m_Settings.enableIK;
 #endif
 
+                m_AnimState.rotation = m_AnimState.aimYaw;
                 m_AnimState.moveAngleLocal = CalculateMoveAngleLocal(m_AnimState.rotation, m_AnimState.moveYaw);
+
                 var targetBlend = AngleToPosition(m_AnimState.moveAngleLocal);
                 m_AnimState.locomotionVector = Vector2.SmoothDamp(m_AnimState.locomotionVector, targetBlend, ref m_CurrentVelocity, m_Settings.damping, m_Settings.maxStep, deltaTime);
 
@@ -87,6 +113,7 @@ namespace JT
         public float maxStep = 15f;
 
         public List<BlendSpaceNode> blendSpaceNodes;
+        public AnimationClip animAim;
         public bool enableIK;
 
         public override IAnimGraphInstance Instatiate(AnimStateController controller, PlayableGraph graph)

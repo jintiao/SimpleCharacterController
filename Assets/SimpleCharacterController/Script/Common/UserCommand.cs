@@ -11,6 +11,16 @@ namespace JT
         public bool jump;
         public bool boost;
 
-        public static UserCommand defaultCommand = new UserCommand();
+        public static UserCommand defaultCommand = new UserCommand(0);
+
+        private UserCommand(int i)
+        {
+            moveYaw = 0;
+            moveMagnitude = 0;
+            lookYaw = 0;
+            lookPitch = 90;
+            jump = false;
+            boost = false;
+        }
     }
 }
