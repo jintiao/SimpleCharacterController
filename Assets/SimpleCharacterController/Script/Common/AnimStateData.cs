@@ -17,12 +17,18 @@ namespace JT
         public LocomotionState previousCharLocoState;
 
         public float moveAngleLocal;
+
         public float turnStartAngle;
         public float turnDirection;
+
         public float inAirTime;
         public float jumpTime;
+
         public Vector2 footIkOffset;
         public Vector3 footIkNormalLeft;
-        public Vector3 footIkNormaRight;
+        public Vector3 footIkNormaRight; 
+        
+        public float squashTime;
+        public float squashWeight;
     }
 }

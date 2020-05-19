@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f075b73566246c44a06313093956ea9, type: 3}
-  m_Name: AnimGraph_Stack
+  m_Script: {fileID: 11500000, guid: 84697ea61bcc2ce4d9e6588ad5b1eb24, type: 3}
+  m_Name: AnimGraph_Squash
   m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: 11400000, guid: a6126ddff87df054e8407b2eda2daf2d, type: 2}
-  - {fileID: 11400000, guid: f51176ce5519e204e9a0294cff81cec6, type: 2}
+  animSquash: {fileID: 8063925377563408677, guid: ef1bd423e00420c448fb1566e0716a99,
+    type: 3}

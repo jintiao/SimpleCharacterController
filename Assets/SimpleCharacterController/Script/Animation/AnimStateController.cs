@@ -31,6 +31,9 @@ namespace JT
             m_AnimGraphState = m_AnimGraph as IGraphState;
 
             m_PlayableGraph.Play();
+#if UNITY_EDITOR
+            GraphVisualizerClient.Show(m_PlayableGraph);
+#endif
 
             var outputPlayable = Playable.Null;
             var outputPort = 0;
