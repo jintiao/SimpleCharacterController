@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e961ee726448a7e4c8d9e6406edfe4e5, type: 3}
   m_Name: AnimGraph_TwoBoneIk
   m_EditorClassIdentifier: 
-  targetBone: 
-  drivenBone: 
+  targetBone: Right_Offhand_IK
+  drivenBone: Left_Hand
