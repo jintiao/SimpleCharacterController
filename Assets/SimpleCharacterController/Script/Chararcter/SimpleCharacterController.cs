@@ -14,18 +14,23 @@ namespace JT
         public ControllerMode controllerMode;
         public Camera characterCamera;
 
+        public Transform weaponAttachBone;
+
         AbilityMove m_AbilityMove;
         AnimStateController m_AnimStateController;
         AnimStateData m_AnimState;
         LogicStateData m_PredictedState;
 
-        void Start()
+        void Awake()
         {
             m_AbilityMove = GetComponent<AbilityMove>();
             m_AnimStateController = GetComponent<AnimStateController>();
+ 
             m_AnimState = GetComponent<AnimStateData>();
-            m_PredictedState = GetComponent<LogicStateData>();
+            if (m_AnimState == null) m_AnimState = gameObject.AddComponent<AnimStateData>();
 
+            m_PredictedState = GetComponent<LogicStateData>();
+            if (m_PredictedState == null) m_PredictedState = gameObject.AddComponent<LogicStateData>();
             m_PredictedState.position = transform.position;
             m_PredictedState.velocity = Vector3.zero;
         }

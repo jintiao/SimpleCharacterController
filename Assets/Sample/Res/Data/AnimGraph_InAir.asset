@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animInAir: {fileID: -2702400367771620057, guid: 19f9e27978b67084e94bc38f160450eb,
     type: 3}
+  animAim: {fileID: 6806221031296916725, guid: 8364ac8080a94bd4a8492604546edaf3, type: 3}

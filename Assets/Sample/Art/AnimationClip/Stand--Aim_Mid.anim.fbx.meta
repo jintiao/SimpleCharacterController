@@ -61,7 +61,7 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {instanceID: 0}
+      maskSource: {fileID: 31900000, guid: b6be47b6d9e6ece468f8ada3fb57a83a, type: 2}
       additiveReferencePoseFrame: 4
     isReadable: 0
   meshes:

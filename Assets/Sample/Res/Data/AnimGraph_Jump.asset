@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animJump: {fileID: 40278438151884792, guid: d5f41500706ad8b458629230f2529563, type: 3}
   jumpHeight: 1.4
+  animAim: {fileID: 6806221031296916725, guid: 8364ac8080a94bd4a8492604546edaf3, type: 3}

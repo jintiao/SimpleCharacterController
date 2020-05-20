@@ -1,9 +1,25 @@
-﻿using JT;
+﻿using Cinemachine;
+using JT;
 using UnityEngine;
 
 public class GameLoop : MonoBehaviour
 {
+    public CinemachineVirtualCamera vcamera;
+    public GameObject character;
+    public GameObject weapon;
+
     public float mouseSensitivity = 1.5f;
+
+    void Start()
+    {
+        var c = Instantiate(character);
+        var w = Instantiate(weapon);
+        var a = w.AddComponent<CharacterAttachment>();
+        a.attachPoint = c.GetComponent<SimpleCharacterController>().weaponAttachBone;
+
+        vcamera.Follow = c.transform;
+        vcamera.LookAt = c.transform;
+    }
 
     void Update()
     {

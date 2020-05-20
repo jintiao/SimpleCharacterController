@@ -14,3 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animSquash: {fileID: 8063925377563408677, guid: ef1bd423e00420c448fb1566e0716a99,
     type: 3}
+  landMin:
+    weight: 0.4
+    playSpeed: 1.5
+  landMinFallSpeed: 3
+  landMax:
+    weight: 0.8
+    playSpeed: 1.5
+  landMaxFallSpeed: 5
+  stop:
+    weight: 0.1
+    playSpeed: 1.5
+  start:
+    weight: 0.4
+    playSpeed: 1.5
+  changeDir:
+    weight: 0.8
+    playSpeed: 1.5
+  dirChangeMinAngle: 35
+  dirChangeTimePenalty: 0.4
