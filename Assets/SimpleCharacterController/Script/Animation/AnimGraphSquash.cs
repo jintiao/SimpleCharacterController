@@ -10,7 +10,6 @@ namespace JT
     {
         class Instance : IAnimGraphInstance, IGraphLogic
         {
-            PlayableGraph m_Graph;
             AnimGraphSquash m_Settings;
 
             AnimStateData m_AnimState;
@@ -25,7 +24,6 @@ namespace JT
 
             public Instance(AnimStateController controller, PlayableGraph graph, AnimGraphSquash settings)
             {
-                m_Graph = graph;
                 m_Settings = settings;
 
                 m_AnimState = controller.GetComponent<AnimStateData>();
@@ -37,8 +35,8 @@ namespace JT
                 m_AnimSquash.SetApplyFootIK(false);
                 m_AnimSquash.SetDuration(settings.animSquash.length);
                 m_AnimSquash.Pause();
-                graph.Connect(m_AnimSquash, 0, m_Mixer, 1);
-                m_Mixer.SetInputWeight(1, 0.0f);
+
+                m_Mixer.ConnectInput(1, m_AnimSquash, 0, 0.0f);
                 m_Mixer.SetLayerAdditive(1, true);
             }
 
@@ -56,8 +54,7 @@ namespace JT
 
             public void SetPlayableInput(int portId, Playable playable, int playablePort)
             {
-                m_Graph.Connect(playable, playablePort, m_Mixer, 0);
-                m_Mixer.SetInputWeight(0, 1.0f);
+                m_Mixer.ConnectInput(0, playable, playablePort, 1.0f);
             }
 
             public void Shutdown()
